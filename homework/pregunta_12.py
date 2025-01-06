@@ -4,9 +4,17 @@ datos requeridos se encuentran en los archivos `tbl0.tsv`, `tbl1.tsv` y
 `tbl2.tsv`. En este laboratorio solo puede utilizar las funciones y 
 librerias de pandas para resolver las preguntas.
 """
+import  pandas as pd 
 
+tbl0= pd.read_csv("files/input/tbl0.tsv", sep= "\t")
+tbl1= pd.read_csv("files/input/tbl1.tsv", sep= "\t")
+tbl2= pd.read_csv("files/input/tbl2.tsv", sep= "\t")
 
 def pregunta_12():
+    
+    
+
+
     """
     Construya una tabla que contenga `c0` y una lista separada por ','
     de los valores de la columna `c5a`  y `c5b` (unidos por ':') de la
@@ -22,3 +30,9 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
+    z = tbl2.copy()
+    z["c5"]= z["c5a"].astype(str) + ":"+ z["c5b"].astype(str)
+    tabla_agrupada= z.groupby("c0")["c5"]
+    lista_ordenada= tabla_agrupada.apply(lambda x: ",".join(sorted(list(x)))).reset_index()
+    df = pd.DataFrame(lista_ordenada)
+    return df 
